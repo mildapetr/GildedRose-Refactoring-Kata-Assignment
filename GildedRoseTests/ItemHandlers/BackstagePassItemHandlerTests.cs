@@ -17,7 +17,7 @@ namespace GildedRoseTests.ItemHandlers
         public void Update_ItemWithNonMaxQualityAndSellInBeforeFirstBoost_IncresesQualityBy1()
         {
             // arrange
-            var sellIn = BackstagePassItemHandler.FirstQualityBoostSellIn + 2;
+            var sellIn = BackstagePassItemHandler.FirstQualityBoostSellIn + 1;
             var item = new Item { Name = "foo", SellIn = sellIn, Quality = 1 };
 
             // act
@@ -76,7 +76,7 @@ namespace GildedRoseTests.ItemHandlers
         [Theory]
         [InlineData(BackstagePassItemHandler.SecondQualityBoostSellIn)]
         [InlineData(BackstagePassItemHandler.FirstQualityBoostSellIn)]
-        [InlineData(BackstagePassItemHandler.FirstQualityBoostSellIn + 2)]
+        [InlineData(BackstagePassItemHandler.FirstQualityBoostSellIn + 1)]
         public void Update_ItemWithMaxQualityAndPositiveSellIn_QualityRemainsMax(int sellIn)
         {
             // arrange

@@ -14,14 +14,6 @@ namespace GildedRoseKata.ItemHandlers
 
         public Item Update(Item item)
         {
-            item.SellIn--;
-
-            if (item.SellIn < 0)
-            {
-                item.Quality = 0;
-                return item;
-            }
-
             int qualityIncreaseStep = DefaultQualityIncreaseStep;
             if (item.SellIn <= FirstQualityBoostSellIn)
             {
@@ -32,7 +24,16 @@ namespace GildedRoseKata.ItemHandlers
                 qualityIncreaseStep += SecondQualityBoostStepIncrease;
             }
 
-            item.Quality = Math.Min(item.Quality + qualityIncreaseStep, IItemHandler.MaxNonLegendaryItemQuality);
+            item.SellIn--;
+
+            if (item.SellIn < 0)
+            {
+                item.Quality = 0;
+            }
+            else
+            {
+                item.Quality = Math.Min(item.Quality + qualityIncreaseStep, IItemHandler.MaxNonLegendaryItemQuality);
+            }
 
             return item;
         }
