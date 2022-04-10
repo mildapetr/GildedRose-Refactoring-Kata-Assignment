@@ -14,7 +14,7 @@ namespace GildedRoseTests.ItemHandlers
         }
 
         [Fact]
-        public void Update_ItemWithNonMaxQualityAndPositiveSellIn_IncresesQualityBy1()
+        public void Update_ItemWithNonMaxQualityAndPositiveSellIn_IncresesQualityByDefaultStep()
         {
             // arrange
             var item = new Item { Name = "foo", SellIn = 1, Quality = 1 };
@@ -23,12 +23,12 @@ namespace GildedRoseTests.ItemHandlers
             var result = _handler.Update(item);
 
             // assert
-            Assert.Equal(2, result.Quality);
+            Assert.Equal(1 + AgedBrieHandler.DefaultQualityIncreaseStep, result.Quality);
             Assert.Equal(0, result.SellIn);
         }
 
         [Fact]
-        public void Update_ItemWithNonMaxQualityAndNonPositiveSellIn_IncresesQualityBy2()
+        public void Update_ItemWithNonMaxQualityAndNonPositiveSellIn_IncresesQualityByDoubleStep()
         {
             // arrange
             var item = new Item { Name = "foo", SellIn = 0, Quality = 2 };
@@ -37,7 +37,7 @@ namespace GildedRoseTests.ItemHandlers
             var result = _handler.Update(item);
 
             // assert
-            Assert.Equal(4, result.Quality);
+            Assert.Equal(2 + AgedBrieHandler.DefaultQualityIncreaseStep * 2, result.Quality);
             Assert.Equal(-1, result.SellIn);
         }
 
