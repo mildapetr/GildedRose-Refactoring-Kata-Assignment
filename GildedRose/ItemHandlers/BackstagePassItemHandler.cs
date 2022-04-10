@@ -32,7 +32,7 @@ namespace GildedRoseKata.ItemHandlers
                 qualityIncreaseStep += SecondQualityBoostStepIncrease;
             }
 
-            item.Quality = Math.Min(item.Quality + qualityIncreaseStep, ItemConstants.MaxNonLegendaryItemQuality);
+            item.Quality = Math.Min(item.Quality + qualityIncreaseStep, IItemHandler.MaxNonLegendaryItemQuality);
 
             return item;
         }

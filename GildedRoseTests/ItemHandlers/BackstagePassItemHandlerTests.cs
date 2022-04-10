@@ -80,13 +80,13 @@ namespace GildedRoseTests.ItemHandlers
         public void Update_ItemWithMaxQualityAndPositiveSellIn_QualityRemainsMax(int sellIn)
         {
             // arrange
-            var item = new Item { Name = "foo", SellIn = sellIn, Quality = ItemConstants.MaxNonLegendaryItemQuality };
+            var item = new Item { Name = "foo", SellIn = sellIn, Quality = IItemHandler.MaxNonLegendaryItemQuality };
 
             // act
             var result = _handler.Update(item);
 
             // assert
-            Assert.Equal(ItemConstants.MaxNonLegendaryItemQuality, result.Quality);
+            Assert.Equal(IItemHandler.MaxNonLegendaryItemQuality, result.Quality);
             Assert.Equal(sellIn - 1, result.SellIn);
         }
     }

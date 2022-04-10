@@ -11,7 +11,7 @@ namespace GildedRoseKata.ItemHandlers
             item.SellIn--;
 
             var qualityIncreaseStep = item.SellIn < 0 ? DefaultQualityIncreaseStep * 2 : DefaultQualityIncreaseStep;
-            item.Quality = Math.Min(item.Quality + qualityIncreaseStep, ItemConstants.MaxNonLegendaryItemQuality);
+            item.Quality = Math.Min(item.Quality + qualityIncreaseStep, IItemHandler.MaxNonLegendaryItemQuality);
 
             return item;
         }
