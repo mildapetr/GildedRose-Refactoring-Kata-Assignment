@@ -17,13 +17,13 @@ namespace GildedRoseTests.ItemHandlers
         public void Update_ItemWithMaxQuality_QualityAndSellInRemainsTheSame()
         {
             // arrange
-            var item = new Item { Name = "foo", SellIn = 1, Quality = 80 };
+            var item = new Item { Name = "foo", SellIn = 1, Quality = LegendaryItemHandler.LegendaryItemQuality };
 
             // act
             var result = _handler.Update(item);
 
             // assert
-            Assert.Equal(80, result.Quality);
+            Assert.Equal(LegendaryItemHandler.LegendaryItemQuality, result.Quality);
             Assert.Equal(1, result.SellIn);
         }
     }
