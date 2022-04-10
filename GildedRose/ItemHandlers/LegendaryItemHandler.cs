@@ -2,9 +2,11 @@
 {
     public class LegendaryItemHandler : IItemHandler
     {
+        public const int LegendaryItemQuality = 80;
+
         public Item Update(Item item)
         {
-            item.Quality = ItemConstants.LegendaryItemQuality;
+            item.Quality = LegendaryItemQuality;
 
             return item;
         }
