@@ -28,7 +28,7 @@ namespace GildedRoseTests.ItemHandlers
         }
 
         [Fact]
-        public void Update_ItemWithNonPositiveSellIn_DecresesQualityBy2()
+        public void Update_ItemWithNonPositiveSellInAndPositiveQuality_DecresesQualityBy2()
         {
             // arrange
             var item = new Item { Name = "foo", SellIn = 0, Quality = 2 };
