@@ -1,88 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using GildedRoseKata.ItemHandlers;
+using System.Collections.Generic;
 
 namespace GildedRoseKata
 {
     public class GildedRose
     {
         IList<Item> Items;
+
+        // I wasn't sure I could add an additional field to this class, but this was for the purpose of mocking.
+        // This solution would function properly if factory was instantiated in UpdateQuality method in case I couldn't
+        // edit this class's fields and constructors (obviously, tests would be affected as mocking would be difficult,
+        // but the flow would work the same way).
+        private readonly IItemHandlerFactory _itemHandlerFactory;
+
         public GildedRose(IList<Item> Items)
         {
             this.Items = Items;
+            _itemHandlerFactory = new ItemHandlerFactory();
+        }
+
+        public GildedRose(IList<Item> Items, IItemHandlerFactory itemHandlerFactory)
+        {
+            this.Items = Items;
+            _itemHandlerFactory = itemHandlerFactory;
         }
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < Items.Count; i++)
+            foreach (var item in Items)
             {
-                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (Items[i].Quality > 0)
-                    {
-                        if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            Items[i].Quality = Items[i].Quality - 1;
-                        }
-                    }
-                }
-                else
-                {
-                    if (Items[i].Quality < 50)
-                    {
-                        Items[i].Quality = Items[i].Quality + 1;
-
-                        if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (Items[i].SellIn < 11)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-
-                            if (Items[i].SellIn < 6)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                {
-                    Items[i].SellIn = Items[i].SellIn - 1;
-                }
-
-                if (Items[i].SellIn < 0)
-                {
-                    if (Items[i].Name != "Aged Brie")
-                    {
-                        if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (Items[i].Quality > 0)
-                            {
-                                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                                {
-                                    Items[i].Quality = Items[i].Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
-                        }
-                    }
-                    else
-                    {
-                        if (Items[i].Quality < 50)
-                        {
-                            Items[i].Quality = Items[i].Quality + 1;
-                        }
-                    }
-                }
+                var handler = _itemHandlerFactory.GetHandler(item.Name);
+                handler.Update(item);
             }
         }
     }
